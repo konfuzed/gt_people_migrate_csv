@@ -1,0 +1,13 @@
+name: 'GT People Migrate CSV'
+description: Loading profile data from local CSV no matter how obtained
+type: module
+package: GT
+core_version_requirement: ^9 || ^10
+
+# Dependencies
+dependencies:
+  - migrate
+  - migrate_source_csv
+  - migrate_plus
+  - migrate_tools
+  - node
