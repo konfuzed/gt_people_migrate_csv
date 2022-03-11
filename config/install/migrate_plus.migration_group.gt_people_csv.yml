@@ -1,0 +1,30 @@
+# A "migration group" is as the name suggests, a group of migrations.
+
+# The machine name of the group, to be referenced in individual migrations
+id: gt_people
+
+# A human-friendly label for the group.
+label: GT People profiles migrations
+
+# More information about the group.
+description: Custom profile data migrations via CSV or JSON (pending)
+
+# Short description of the type of source, e.g. "Drupal 6" or "WordPress".
+source_type: CSV or JSON files
+
+# Here we add any default settings common to the migration group.
+#
+# For this example, the source tables are in the Drupal (default) database,
+# but usually if your source data is in a database it will be external.
+# In this case we have no such common settings, so I leave this parameter
+# commented out.
+# shared_configuration:
+
+# As with the migration config (see migrate_plus.migration.node_program.yml),
+# we specify that this migration group depends on the c11n_migrate module.
+# Hence, when the c11n_migrate module is uninstalled, this migration group
+# will also be removed from the system.
+dependencies:
+  enforced:
+    module:
+      - gt_people_migrate_csv
