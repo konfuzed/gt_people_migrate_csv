@@ -1,4 +1,5 @@
-# Drupal 8 Migration Example
+# Drupal 8+ Migration Example
+## based on https://github.com/jigarius/drupal-migration-example
 
 Usually when a huge site makes the (wise) decision to migrate to Drupal, one of the biggest concerns of the site owners is _How to migrate the old site's data into the new Drupal site_. The old site might or might not be a Drupal site, but given that the new site is on Drupal, we can make use of the cool _migrate_ module to import data from a variety of data sources including but not limited to XML, JSON, CSV and SQL databases.
 
