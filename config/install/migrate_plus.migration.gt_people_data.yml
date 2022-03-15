@@ -1,79 +1,70 @@
-# Migration file for creating "gt_people" nodes from CSV.
-
 id: gt_people_migrate_csv
+label: GT People profile data CSV file migration
 migration_tags:
   - CSV
+  - Profiles
   - People
-label: 'GT People profile data CSV file migration'
 source:
   plugin: csv
-  path: 'public://import/gt_people/gt_people.data.csv'
-  ids: [id]
+  path: public://import/gt_people.data.csv
   header_row_count: 1
-  delimiter: ','
-  enclosure: '"'
+  ids: [id]
 process:
   type:
     plugin: default_value
-    default_value: people
-  title: Title
-
-  field_gtppl_awards: awards
-  field_gtppl_bio_summary: bio_summary
-  field_gtppl_biography: biography
-  field_gtppl_bldg: bldg
-  field_gtppl_bldg_room: bldg_room
-  field_gtppl_bldg_url_map: bldg_url_map
-  field_gtppl_education: education
-  field_gtppl_email: email
-  field_gtppl_fax: fax
-  field_gtppl_gtaccount: gtaccount
-  field_gtppl_image_local: photo
-  field_gtppl_name_display_html: name_display_html
-  field_gtppl_name_display_plain: name_display_plain
-  field_gtppl_name_first: name_first
-  field_gtppl_name_last: name_last
-  field_gtppl_phone: phone
-  field_gtppl_pronouns: pronouns
-  field_gtppl_publications: publications
-  field_gtppl_research_group: research_group
-  field_gtppl_research_group_url: research_group_url
-  field_gtppl_research_history: research_history
-  field_gtppl_research_keywords: research_keywords
-  field_gtppl_research_summary: research_summary
-  field_gtppl_roles: roles
-  field_gtppl_salutation: salutation
-  field_gtppl_title_custom: title_custom
-  field_gtppl_title_custom_html: title_custom_html
-  field_gtppl_title_custom_short: title_custom_short
-  field_gtppl_title_official: title_official
-  field_gtppl_url_cv_resume: url_cv_resume
-  field_gtppl_url_gscholar: url_gscholar
-  field_gtppl_url_orcid: url_orcid
-  field_gtppl_url_personal: url_personal
-  field_gtppl_url_publons: url_publons
-  field_gtppl_url_pubmed: url_pubmed
-  field_gtppl_url_researcherid: url_researcherid
-  field_gtppl_url_researchgate: url_researchgate
-  field_gtppl_url_scopus: url_scopus
-
-  field_first_name: "First Name"
-  field_last_name: "Last Name"
-  field_email: email
-  field_dob:
-    plugin: format_date
-    from_format: m/d/Y
-    to_format: Y-m-d
-    source: date_of_birth
+    default_value: gt_people
   title:
     plugin: concat
     source:
-      - first_name
-      - last_name
+      - name_first
+      - name_last
     delimiter: ' '
+  field_gtppl_awards: awards
+  field_gtppl_bio_summary: responsibilities
+  field_gtppl_biography:
+      plugin: concat
+      source:
+        - leadership_roles
+        - responsibilities
+      delimiter: '</p><p>'
+  field_gtppl_bldg: bldg
+  field_gtppl_bldg_room: room
+  field_gtppl_education: education
+  field_gtppl_email: email
+  field_gtppl_fax: fax
+  field_gtppl_gtaccount:
+    plugin: callback
+    callable: mb_strtolower
+    source: gtuid
+  field_gtppl_image_local: photo
+  field_gtppl_name_display_html:
+    plugin: concat
+    source:
+      - name_first
+      - name_last
+    delimiter: ' '
+  field_gtppl_name_display_plain:
+    plugin: concat
+    source:
+      - name_first
+      - name_last
+    delimiter: ' '
+  field_gtppl_name_first: name_first
+  field_gtppl_name_last: name_last
+  field_gtppl_phone: phone
+  field_gtppl_publications: publications
+  field_gtppl_research_group: research_group
+  field_gtppl_research_group_url: research_group_url
+  field_gtppl_research_history: research_interests
+  field_gtppl_research_keywords: research_keywords
+  field_gtppl_research_summary: research_area
+  field_gtppl_roles: roles
+  field_gtppl_title_custom: title
+  field_gtppl_title_custom_html: title
+  field_gtppl_title_custom_short: title
+  field_gtppl_url_gscholar: url_gscholar
+  field_gtppl_url_orcid: url_orcid
+  field_gtppl_url_pubmed: url_pubmed
+  field_gtppl_url_researcherid: url_researcherid
 destination:
-  plugin: 'entity:node'
-  default_bundle: gt_people
-migration_dependencies:
-  required: {  }
-  optional: {  }
+  plugin: entity:node
